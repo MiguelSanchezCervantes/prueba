@@ -34,8 +34,8 @@ public class GoogleSearchTest {
 		searchbox.sendKeys("Oracle");
 		searchbox.submit();
 		WebDriverWait wait = new WebDriverWait(driver, 10);
-		wait.until(ExpectedConditions.titleIs("Oracle - Buscar con Google"));
-		assertEquals("Oracle - Buscar con Google", driver.getTitle());
+		wait.until(ExpectedConditions.titleIs("Oracle - Google Search"));
+		System.out.println(driver.getCurrentUrl());
 	}
 	
 	@After
