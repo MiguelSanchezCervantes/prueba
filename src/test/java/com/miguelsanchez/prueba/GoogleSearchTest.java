@@ -1,8 +1,6 @@
 package com.miguelsanchez.prueba;
 
-import static org.junit.Assert.assertEquals;
-
-import java.util.concurrent.TimeUnit;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
@@ -11,6 +9,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -34,12 +33,16 @@ public class GoogleSearchTest {
 		searchbox.sendKeys("Oracle");
 		searchbox.submit();
 		WebDriverWait wait = new WebDriverWait(driver, 10);
-		wait.until(ExpectedConditions.titleIs("Oracle - Google Search"));
+		wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.className("rc"), 1));
+		List<WebElement> results = driver.findElements(By.className("rc"));
+		WebElement webpage = results.get(0).findElement(By.xpath("./div/a"));
+		webpage.click();
+		wait.until(ExpectedConditions.urlToBe("https://www.oracle.com/index.html"));
 		System.out.println(driver.getCurrentUrl());
 	}
 	
 	@After
-	public void tearDown() {
+	public void closeWindow() {
 		driver.quit();
 	}
 }
